@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements MasterListFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // If view exists we are in two-pane mode
         if(findViewById(R.id.android_me_linear_layout) != null) {
             mTwoPane = true;
 
@@ -36,25 +37,20 @@ public class MainActivity extends AppCompatActivity implements MasterListFragmen
             nextButton.setVisibility(View.GONE);
 
             if(savedInstanceState == null) {
-                // In two-pane mode, add initial BodyPartFragments to the screen
                 FragmentManager fragmentManager = getSupportFragmentManager();
 
-                // Creating a new head fragment
                 BodyPartFragment headFragment = new BodyPartFragment();
                 headFragment.setImageIds(AndroidImageAssets.getHeads());
-                // Add the fragment to its container using a transaction
                 fragmentManager.beginTransaction()
                         .add(R.id.head_container, headFragment)
                         .commit();
 
-                // New body fragment
                 BodyPartFragment bodyFragment = new BodyPartFragment();
                 bodyFragment.setImageIds(AndroidImageAssets.getBodies());
                 fragmentManager.beginTransaction()
                         .add(R.id.body_container, bodyFragment)
                         .commit();
 
-                // New leg fragment
                 BodyPartFragment legFragment = new BodyPartFragment();
                 legFragment.setImageIds(AndroidImageAssets.getLegs());
                 fragmentManager.beginTransaction()
@@ -74,8 +70,6 @@ public class MainActivity extends AppCompatActivity implements MasterListFragmen
         int listIndex = position - 12 * bodyPartNumber;
 
         if (mTwoPane) {
-            // Create two=pane interaction
-
             BodyPartFragment newFragment = new BodyPartFragment();
 
             switch (bodyPartNumber) {
